@@ -1,3 +1,5 @@
+let elModalWrapper = document.querySelector(".modal-wrapper")
+let elModal = document.querySelector(".modal")
 
 let elCardWrapper = document.querySelector(".wrapper")
 let elList1 = document.querySelector(".list1")
@@ -7,56 +9,6 @@ let elList3 = document.querySelector(".list3")
 let request1 = new XMLHttpRequest()
 let request2 = new XMLHttpRequest()
 let request3 = new XMLHttpRequest()
-
-// const promise = new Promise((resolve, reject) => {
-//     request.open("GET", "https://jsonplaceholder.typicode.com/posts");
-//     request.send()
-
-//     request.onload = () => {
-//         resolve(JSON.parse(request.response))
-//     }
-//     request.onerror = () => {
-//         reject("Frontda xatolik bor")
-//     }
-//     request.onabort = () => {
-//         reject("Backendda xatolik bor")
-//     }
-// })
-
-// promise
-// .then(res =>  {
-//     let splicedList = res.splice(0, 20);
-//     splicedList.length ? splicedList.map(item => {
-//         let elItem = document.createElement("li")
-
-//         elItem.classList.add("list-item")
-//         elItem.innerHTML = `
-//             <span>
-//                 <b class="item-text">ID: </b>
-//                 ${item.id}
-//             </span>
-
-//             <strong>
-//                 <b class="item-text">Name: </b>
-//                 ${item.title}
-//             </strong>
-
-//             <p>
-//                 <b class="item-text">Post: </b>
-//                 ${item.body}
-//             </p>
-
-//             <div>
-//                 <button class="item-btn">More</button> // bu button ishlamaydi
-//             </div>
-//         `
-//         elList1.appendChild(elItem)
-
-//     }) : "Ma'lumot topilmadi"
-// })
-// .catch(err => {
-//     console.log(err);
-// })
 
 
 // 1-list render start -----------------------------------------
@@ -101,7 +53,7 @@ getRequest(request1, "https://jsonplaceholder.typicode.com/posts")
                 </p>
     
                 <div>
-                    <button class="item-btn">More</button>
+                    <button onclick="morePostClick()" class="item-btn">More</button>
                 </div>
             `
             elList1.appendChild(elItem)
@@ -218,3 +170,33 @@ getRequest(request3, "https://jsonplaceholder.typicode.com/todos")
         }) : "Ma'lumot topilmadi"
 })
 // 3-list render end -----------------------------------------
+
+// Modal part start --------------------------------------------
+function morePostClick(id){
+    getRequest(request1, `https://jsonplaceholder.typicode.com/posts/${id}`)
+    .then(res => {
+        elModalWrapper.classList.add("open-modal")
+        elModal.innerHTML = `
+        <span>
+            <b class="item-text">ID: </b>
+            ${res.id}
+        </span>
+
+        <strong>
+            <b class="item-text">Name: </b>
+            ${res.name}
+        </strong>
+
+        <strong>
+            <b class="item-text">Email: </b>
+            ${res.email}
+        </strong>
+
+        <p>
+            <b class="item-text">Post: </b>
+            ${res.body}
+        </p>
+        `
+    })
+} // Modal ishlamadi
+// Modal part end --------------------------------------------

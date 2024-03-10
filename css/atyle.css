@@ -12,6 +12,34 @@ body, html {
     overflow-y: hidden;
 }
 
+.modal-wrapper {
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    backdrop-filter: blur(10px);
+    display: none;
+}
+
+.modal {
+    width: 50%;
+    position: absolute;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: lightskyblue;
+}
+
+.open-modal {
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    backdrop-filter: blur(10px);
+    display: block;
+}
+
 .top-wrapper {
     display: flex;
     flex-direction: column;
